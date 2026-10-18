@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Canonical, public, indexable URLs only.
+       Admin dashboards and duplicate weather aliases are excluded. -->
+  <url><loc>https://trafficpoliceabbottabad.gov.pk/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+
+  <url><loc>https://trafficpoliceabbottabad.gov.pk/about</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://trafficpoliceabbottabad.gov.pk/about/officers-message</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://trafficpoliceabbottabad.gov.pk/about/officers</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://trafficpoliceabbottabad.gov.pk/about/shuhada</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://trafficpoliceabbottabad.gov.pk/about/mission-vision</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://trafficpoliceabbottabad.gov.pk/about/organization</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://trafficpoliceabbottabad.gov.pk/about/achievements</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+
+  <url><loc>https://trafficpoliceabbottabad.gov.pk/services</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://trafficpoliceabbottabad.gov.pk/services/driving-license</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://trafficpoliceabbottabad.gov.pk/services/driving-license/new</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://trafficpoliceabbottabad.gov.pk/services/driving-license/learner-permit</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://trafficpoliceabbottabad.gov.pk/services/driving-license/duplicate</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trafficpoliceabbottabad.gov.pk/services/driving-license/renewal</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://trafficpoliceabbottabad.gov.pk/services/driving-license/raabta-app</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trafficpoliceabbottabad.gov.pk/services/driving-license/e-license</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trafficpoliceabbottabad.gov.pk/services/driving-license/international-permit</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trafficpoliceabbottabad.gov.pk/services/driving-license/for-afghans</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trafficpoliceabbottabad.gov.pk/services/driving-license/diplomats</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://trafficpoliceabbottabad.gov.pk/services/driving-license/conversion</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trafficpoliceabbottabad.gov.pk/services/driving-license/endorsement</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://trafficpoliceabbottabad.gov.pk/services/driving-license/fee-structure</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://trafficpoliceabbottabad.gov.pk/services/driving-school</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <url><loc>https://trafficpoliceabbottabad.gov.pk/initiatives/command-control-room</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trafficpoliceabbottabad.gov.pk/initiatives/special-squads</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trafficpoliceabbottabad.gov.pk/initiatives/toll-1915-helpline</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trafficpoliceabbottabad.gov.pk/initiatives/fm-radio</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://trafficpoliceabbottabad.gov.pk/initiatives/pahchan-app</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://trafficpoliceabbottabad.gov.pk/initiatives/helmet-mirror-distribution</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+
+  <url><loc>https://trafficpoliceabbottabad.gov.pk/traffic-education</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://trafficpoliceabbottabad.gov.pk/traffic-education/offense-list</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://trafficpoliceabbottabad.gov.pk/traffic-education/driving-test-guide</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+
+  <url><loc>https://trafficpoliceabbottabad.gov.pk/tourism/welcome-abbottabad</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://trafficpoliceabbottabad.gov.pk/tourism/galiyat-travel-advisory</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
+  <url><loc>https://trafficpoliceabbottabad.gov.pk/tourism/winter-travel-safety</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trafficpoliceabbottabad.gov.pk/tourism/abbottabad-map</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trafficpoliceabbottabad.gov.pk/tourism/mobile-workshop</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://trafficpoliceabbottabad.gov.pk/tourism/first-aid</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://trafficpoliceabbottabad.gov.pk/tourism/canteen-mobile</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://trafficpoliceabbottabad.gov.pk/tourism/facilitation-center</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <url><loc>https://trafficpoliceabbottabad.gov.pk/weather</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+
+  <url><loc>https://trafficpoliceabbottabad.gov.pk/traffic-safety</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trafficpoliceabbottabad.gov.pk/abbottabad-traffic</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trafficpoliceabbottabad.gov.pk/public-information</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trafficpoliceabbottabad.gov.pk/media-news</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trafficpoliceabbottabad.gov.pk/contact</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://trafficpoliceabbottabad.gov.pk/online-complaint</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+</urlset>

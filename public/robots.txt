@@ -1,0 +1,13 @@
+# Traffic Warden Abbottabad — Official Citizen Portal
+# https://trafficpoliceabbottabad.gov.pk
+
+User-agent: *
+Allow: /
+
+# Staff-only advisory dashboard (no public chrome, sign-in required)
+Disallow: /admin
+
+# Crawlable, render-required assets must never be blocked
+# (CSS/JS bundles, images and fonts remain fully accessible)
+
+Sitemap: https://trafficpoliceabbottabad.gov.pk/sitemap.xml
