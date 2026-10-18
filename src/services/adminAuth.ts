@@ -6,27 +6,25 @@ import { isSupabaseConfigured, supabase } from './supabaseClient';
  *
  * Used by the hidden admin area (`/admin/galiyat-advisory`).
  *
- * WITH SUPABASE (VITE_SUPABASE_URL + VITE_SUPABASE_ANON_KEY set) this uses
- * Supabase Auth: only real staff accounts can open the dashboard, and the
- * policies in `supabase/schema.sql` allow writes only for signed-in users.
+ * Sign-in always goes through Supabase Auth (VITE_SUPABASE_URL +
+ * VITE_SUPABASE_ANON_KEY): only staff accounts created in the Supabase
+ * dashboard and listed in `public.advisory_staff` (see
+ * `supabase/updates-01-staff-access.sql`) can manage advisories, and the
+ * database policies — not this code — are the actual access boundary.
  *
- * WITHOUT those values it falls back to a local, front-end-only sign-in so the
- * dashboard still works during development. That fallback is NOT real security —
- * anyone can read the bundled credentials.
- *
- * The rest of the app only calls the functions exported here, so switching
- * between the two modes is invisible to the UI.
+ * There is deliberately NO bundled fallback account: a compiled-in
+ * email/password pair used to end up readable in the production JavaScript
+ * (Vite inlines VITE_ variables at build time). If the backend is not
+ * configured, admin sign-in reports an error instead of "working" behind a
+ * front-end-only password.
  */
+
 export interface AdminSession {
   email: string;
   signedInAt: string;
 }
 
 const SESSION_KEY = 'tpa_admin_session_v1';
-
-/** Only used in the local fallback (when Supabase is not configured). */
-const FALLBACK_EMAIL = import.meta.env.VITE_ADMIN_EMAIL ?? 'admin@twabbottabad.gov.pk';
-const FALLBACK_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD ?? 'admin123';
 
 const listeners = new Set<() => void>();
 
@@ -124,25 +122,12 @@ export async function signInAdmin(email: string, password: string): Promise<Admi
     return session;
   }
 
-  // Local fallback — mirrors the latency of a network sign-in.
-  await new Promise((resolve) => setTimeout(resolve, 320));
-
-  const normalizedEmail = email.trim().toLowerCase();
-  const matches =
-    normalizedEmail === FALLBACK_EMAIL.toLowerCase() && password === FALLBACK_PASSWORD;
-
-  if (!matches) {
-    throw new Error('Email or password is not correct.');
-  }
-
-  const session: AdminSession = {
-    email: normalizedEmail,
-    signedInAt: new Date().toISOString(),
-  };
-
-  writeMirror(session);
-  emit();
-  return session;
+  // Backend not configured — fail loudly instead of "authenticating" with
+  // credentials that could be read from the JavaScript bundle.
+  throw new Error(
+    'Admin sign-in is unavailable: the website backend (Supabase) is not configured. ' +
+      'Set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY and rebuild.'
+  );
 }
 
 export function signOutAdmin(): void {

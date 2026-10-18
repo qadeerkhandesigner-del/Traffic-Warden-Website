@@ -99,6 +99,22 @@ function escapeHtml(value: string | null | undefined): string {
     .replace(/'/g, '&#39;');
 }
 
+/**
+ * Only allow safe URL schemes in href/src attributes, even when the value is
+ * stored by staff. Blocks javascript:, data:, vbscript: and relatives that
+ * resolve to odd schemes. Returns undefined when the value should be ignored.
+ */
+function safeWebUrl(value: string | null | undefined): string | undefined {
+  const trimmed = (value ?? '').trim();
+  return /^https?:\/\//i.test(trimmed) ? trimmed : undefined;
+}
+
+/** Only allow a digits/+, -, (, ), space string as a tel: target. */
+function safeTelHref(value: string | null | undefined): string | undefined {
+  const trimmed = (value ?? '').trim();
+  return /^[+0-9().\- ]{3,20}$/.test(trimmed) ? encodeURIComponent(trimmed) : undefined;
+}
+
 function buildLocationPopupHtml(location: MapLocation, isUrdu: boolean): string {
   const meta = getMapCategoryMeta(location.category);
   const categoryLabel = isUrdu ? meta.labelUrdu : meta.label;
@@ -106,14 +122,18 @@ function buildLocationPopupHtml(location: MapLocation, isUrdu: boolean): string 
     ? `<span style="display:inline-block;padding:2px 8px;border-radius:9999px;background:rgba(37,109,210,.12);color:#1d4ed8;font-size:10px;font-weight:700">${isUrdu ? 'تصدیق شدہ' : 'Verified'}</span>`
     : `<span style="display:inline-block;padding:2px 8px;border-radius:9999px;background:#fef3c7;color:#92400e;font-size:10px;font-weight:700">${isUrdu ? 'تخمینی مقام' : 'Approximate'}</span>`;
 
-  const image = location.imageUrl
-    ? `<img src="${escapeHtml(location.imageUrl)}" alt="" loading="lazy" style="margin:8px 0 0;display:block;width:100%;max-height:120px;object-fit:cover;border-radius:10px" />`
+  const safeImageUrl = safeWebUrl(location.imageUrl);
+  const safeMapsUrl = safeWebUrl(location.googleMapsUrl);
+  const safeContact = safeTelHref(location.contactNumber);
+
+  const image = safeImageUrl
+    ? `<img src="${escapeHtml(safeImageUrl)}" alt="" loading="lazy" style="margin:8px 0 0;display:block;width:100%;max-height:120px;object-fit:cover;border-radius:10px" />`
     : '';
-  const mapsLink = location.googleMapsUrl
-    ? `<p style="margin:8px 0 0"><a href="${escapeHtml(location.googleMapsUrl)}" target="_blank" rel="noreferrer" style="color:#256dd2;font-weight:600;font-size:12px">${isUrdu ? 'Google Maps پر دیکھیں' : 'View on Google Maps'} ↗</a></p>`
+  const mapsLink = safeMapsUrl
+    ? `<p style="margin:8px 0 0"><a href="${escapeHtml(safeMapsUrl)}" target="_blank" rel="noreferrer" style="color:#256dd2;font-weight:600;font-size:12px">${isUrdu ? 'Google Maps پر دیکھیں' : 'View on Google Maps'} ↗</a></p>`
     : '';
-  const contact = location.contactNumber
-    ? `<p style="margin:6px 0 0;font-size:12px"><a href="tel:${escapeHtml(location.contactNumber)}" style="color:#256dd2;font-weight:600">${escapeHtml(location.contactNumber)}</a></p>`
+  const contact = safeContact
+    ? `<p style="margin:6px 0 0;font-size:12px"><a href="tel:${safeContact}" style="color:#256dd2;font-weight:600">${escapeHtml(location.contactNumber)}</a></p>`
     : '';
   const description = location.description
     ? `<p style="margin:6px 0 0;font-size:12px;color:#475569">${escapeHtml(location.description)}</p>`
@@ -739,17 +759,17 @@ const AbbottabadMap: React.FC = () => {
                               {selection.location.address}
                             </p>
                           )}
-                          {selection.location.contactNumber && (
+                          {selection.location.contactNumber && safeTelHref(selection.location.contactNumber) && (
                             <a
-                              href={`tel:${selection.location.contactNumber}`}
+                              href={`tel:${safeTelHref(selection.location.contactNumber)}`}
                               className="mt-1.5 inline-flex items-center gap-1 text-xs font-semibold text-brand-blue"
                             >
                               {t('Contact', 'رابطہ')}: {selection.location.contactNumber}
                             </a>
                           )}
-                          {selection.location.googleMapsUrl && (
+                          {safeWebUrl(selection.location.googleMapsUrl) && (
                             <a
-                              href={selection.location.googleMapsUrl}
+                              href={safeWebUrl(selection.location.googleMapsUrl)}
                               target="_blank"
                               rel="noreferrer"
                               className="mt-1.5 inline-flex items-center gap-1 text-xs font-semibold text-brand-blue"
