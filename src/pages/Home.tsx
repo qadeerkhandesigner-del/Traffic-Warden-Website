@@ -490,7 +490,7 @@ export const Home: React.FC = () => {
                   ? 'عوامی سہولیات اور ٹریفک رہنمائی گائیڈ'
                   : 'Our Range of Public Guidance & Citizen Services'}
               </h2>
-              <p className="text-sm text-slate-600 mt-2 whitespace-nowrap">
+              <p className="text-sm text-slate-600 mt-2">
                 {language === 'ur'
                   ? 'ڈرائیونگ لائسنسنگ، روٹ پلان، چالان ادائیگی، اور روڈ سیفٹی سے متعلق تمام سرکاری معلومات۔'
                   : 'Official procedures, essential documents, and step-by-step guidance for citizens of Abbottabad.'}

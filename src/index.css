@@ -38,6 +38,10 @@
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    /* Never let one oversized element widen the whole document: a sideways-
+       scrollable page shifts sticky headers off-center and throws fixed
+       elements (mobile navigation drawer) outside the visual viewport. */
+    overflow-x: clip;
   }
 
   body {
@@ -47,6 +51,7 @@
     background-color: var(--light-bg);
     color: #1E293B;
     font-family: 'Poppins', 'Noto Sans Arabic', sans-serif;
+    overflow-x: clip;
   }
 
   /* Safe area insets for mobile devices */

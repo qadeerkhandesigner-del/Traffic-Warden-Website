@@ -450,7 +450,7 @@ const AdvisoryDashboard: React.FC<{ session: AdminSession }> = ({ session }) => 
         >
           {([
             { id: 'advisories' as const, label: 'Advisories' },
-            { id: 'routes' as const, label: 'Route Status' },
+            { id: 'routes' as const, label: 'Road Status' },
             { id: 'map' as const, label: 'Map Locations' },
           ]).map((tab) => (
             <button

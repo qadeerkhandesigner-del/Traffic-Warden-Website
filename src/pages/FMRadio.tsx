@@ -33,8 +33,8 @@ const HERO_CHIPS = [
   },
   {
     icon: Clock,
-    en: 'Daily 11:00 AM – 12:00 PM',
-    ur: 'روزانہ 11:00 تا 12:00 بجے دن',
+    en: 'Mon–Fri 11:00 AM – 12:00 PM',
+    ur: 'پیر تا جمعہ 11:00 تا 12:00 بجے دن',
   },
   {
     icon: Users,
@@ -247,8 +247,8 @@ export const FMRadio: React.FC = () => {
 
                 <p className="mt-4 text-sm leading-relaxed text-brand-light-text sm:text-base">
                   {t(
-                    'Through this platform, Abbottabad Traffic Police broadcasts its dedicated programme, “Awaaz-e-Khalq with Abbottabad Traffic Police,” which airs daily from 11:00 AM to 12:00 PM.',
-                    'اس پلیٹ فارم کے ذریعے ایبٹ آباد ٹریفک پولیس اپنا مخصوص پروگرام ”آوازِ خلق مع ایبٹ آباد ٹریفک پولیس“ نشر کرتی ہے، جو روزانہ صبح 11:00 بجے سے دوپہر 12:00 بجے تک آن ایئر ہوتا ہے۔'
+                    'Through this platform, Abbottabad Traffic Police broadcasts its dedicated programme, “Awaaz-e-Khalq with Abbottabad Traffic Police,” which airs Monday to Friday from 11:00 AM to 12:00 PM.',
+                    'اس پلیٹ فارم کے ذریعے ایبٹ آباد ٹریفک پولیس اپنا مخصوص پروگرام ”آوازِ خلق مع ایبٹ آباد ٹریفک پولیس“ نشر کرتی ہے، جو پیر تا جمعہ صبح 11:00 بجے سے دوپہر 12:00 بجے تک آن ایئر ہوتا ہے۔'
                   )}
                 </p>
 
@@ -274,15 +274,15 @@ export const FMRadio: React.FC = () => {
                     <RadioTower className="h-5 w-5" aria-hidden="true" />
                   </span>
                   <h3 className="mt-3 text-sm font-bold text-brand-blue-900 sm:text-base">
-                    {t('Daily Broadcast', 'روزانہ نشریات')}
+                    {t('Mon–Fri Broadcast', 'پیر تا جمعہ نشریات')}
                   </h3>
                   <p className="mt-1 text-2xl font-extrabold tracking-tight text-brand-blue-900 sm:text-3xl">
                     11:00 AM – 12:00 PM
                   </p>
                   <p className="mt-2 text-sm leading-relaxed text-brand-blue-900/90">
                     {t(
-                      'Tune in to Pakhtunkhwa FM Radio 92.4 every day from 11:00 AM to 12:00 PM for “Awaaz-e-Khalq with Abbottabad Traffic Police.”',
-                      'ہر روز صبح 11:00 بجے سے دوپہر 12:00 بجے تک پختونخوا ایف ایم ریڈیو 92.4 پر ”آوازِ خلق مع ایبٹ آباد ٹریفک پولیس“ ضرور سنیں۔'
+                      'Tune in to Pakhtunkhwa FM Radio 92.4 every Monday to Friday from 11:00 AM to 12:00 PM for “Awaaz-e-Khalq with Abbottabad Traffic Police.”',
+                      'پیر تا جمعہ صبح 11:00 بجے سے دوپہر 12:00 بجے تک پختونخوا ایف ایم ریڈیو 92.4 پر ”آوازِ خلق مع ایبٹ آباد ٹریفک پولیس“ ضرور سنیں۔'
                     )}
                   </p>
                 </div>
@@ -405,15 +405,15 @@ export const FMRadio: React.FC = () => {
                     <Radio className="h-6 w-6" aria-hidden="true" />
                   </span>
                   <h2 id="closing-heading" className="mt-4 text-xl font-bold sm:text-2xl">
-                    {t('Tune In Daily', 'روزانہ ضرور سنیں')}
+                    {t('Tune In Mon–Fri', 'پیر تا جمعہ ضرور سنیں')}
                   </h2>
                 </div>
 
                 <div className="lg:col-span-2">
                   <p className="text-sm leading-relaxed text-brand-blue-100 sm:text-base">
                     {t(
-                      'Tune in daily from 11:00 AM to 12:00 PM for “Awaaz-e-Khalq with Abbottabad Traffic Police” on Pakhtunkhwa FM Radio 92.4.',
-                      'روزانہ صبح 11:00 بجے سے دوپہر 12:00 بجے تک پختونخوا ایف ایم ریڈیو 92.4 پر ”آوازِ خلق مع ایبٹ آباد ٹریفک پولیس“ ضرور سنیں۔'
+                      'Tune in every Monday to Friday from 11:00 AM to 12:00 PM for “Awaaz-e-Khalq with Abbottabad Traffic Police” on Pakhtunkhwa FM Radio 92.4.',
+                      'پیر تا جمعہ صبح 11:00 بجے سے دوپہر 12:00 بجے تک پختونخوا ایف ایم ریڈیو 92.4 پر ”آوازِ خلق مع ایبٹ آباد ٹریفک پولیس“ ضرور سنیں۔'
                     )}
                   </p>
 
@@ -421,7 +421,7 @@ export const FMRadio: React.FC = () => {
                     {[
                       { icon: Clock, label: AIR_TIME_EN, labelUr: AIR_TIME_UR },
                       { icon: RadioTower, label: 'Pakhtunkhwa FM 92.4', labelUr: 'پختونخوا ایف ایم 92.4' },
-                      { icon: CheckCircle2, label: 'Daily Programme', labelUr: 'روزانہ پروگرام' },
+                      { icon: CheckCircle2, label: 'Mon–Fri Programme', labelUr: 'پیر تا جمعہ پروگرام' },
                     ].map((chip) => (
                       <span
                         key={chip.label}

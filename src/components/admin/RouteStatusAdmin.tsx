@@ -203,7 +203,7 @@ export const RouteStatusAdmin: React.FC<{ session: AdminSession }> = ({ session 
       <div className="flex flex-col gap-4 border-b border-brand-light-border pb-5 sm:flex-row sm:items-end sm:justify-between">
         <div className="min-w-0">
           <h1 className="text-xl font-extrabold uppercase tracking-tight text-brand-dark sm:text-2xl">
-            Route Status
+            Road Status
           </h1>
           <p className="mt-1 max-w-2xl text-sm text-brand-light-muted">
             Add the Galiyat routes manually, then mark each one open or closed. The public advisory

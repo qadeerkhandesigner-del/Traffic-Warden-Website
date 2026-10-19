@@ -90,7 +90,7 @@ export const RouteStatusBoard: React.FC<RouteStatusBoardProps> = ({ routes, isLo
         <div className={BOARD_HEADER}>
           <span className={BOARD_TITLE}>
             <MapPin className="h-4 w-4 shrink-0 text-brand-lime" aria-hidden="true" />
-            Route Status Board
+            Road Status Board
           </span>
         </div>
         <ul className="divide-y divide-brand-light-border">
@@ -125,7 +125,7 @@ export const RouteStatusBoard: React.FC<RouteStatusBoardProps> = ({ routes, isLo
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-lime opacity-60" />
             <span className="relative inline-flex h-2 w-2 rounded-full bg-brand-lime" />
           </span>
-          Route Status Board
+          Road Status Board
         </span>
 
         <span className="flex items-center gap-2">

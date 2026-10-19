@@ -305,15 +305,15 @@ export const GaliyatTravelAdvisory: React.FC = () => {
             </div>
           </section>
 
-          {/* ----------------------------- ROUTE STATUS --------------------------- */}
-          <section aria-labelledby="route-status-heading">
+          {/* ----------------------------- ROAD STATUS --------------------------- */}
+          <section aria-labelledby="road-status-heading">
             <div className="max-w-3xl">
               <div className={eyebrowClassName}>
                 <span className="h-1.5 w-1.5 rounded-full bg-brand-blue" aria-hidden="true" />
                 <span>{t('Roads & Routes', 'رستے اور سڑکیں')}</span>
               </div>
-              <h2 id="route-status-heading" className={sectionTitleClassName}>
-                {t('Route Status', 'رستوں کی صورتحال')}
+              <h2 id="road-status-heading" className={sectionTitleClassName}>
+                {t('Road Status', 'سڑکوں کی صورتحال')}
               </h2>
               <p className={sectionIntroClassName}>
                 {t(
