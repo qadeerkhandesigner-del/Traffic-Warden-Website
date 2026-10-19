@@ -8,6 +8,7 @@ import { PageContainer } from './PageContainer';
 import { useLanguage } from '../../hooks/useLanguage';
 import { EMERGENCY_CONTACTS, PORTAL_METADATA } from '../../data/navigation';
 import logoImg from '/Traffic-Logo-Updated.png';
+import { cn } from '../../lib/utils';
 
 export const Header: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -37,10 +38,24 @@ export const Header: React.FC = () => {
 
             {/* Center: Title + Tagline */}
             <div className="flex flex-col items-center text-center flex-1 min-w-0 lg:px-4">
-              <span className="text-lg sm:text-xl lg:text-2xl font-extrabold tracking-tight text-white font-poppins leading-none truncate">
+              {/* English name is much longer than the Urdu one, so it gets a
+                  smaller mobile size; Urdu keeps its original sizing. */}
+              <span
+                className={cn(
+                  'font-extrabold tracking-tight text-white font-poppins leading-none truncate',
+                  language === 'ur'
+                    ? 'text-lg sm:text-xl lg:text-2xl'
+                    : 'text-base sm:text-xl lg:text-2xl'
+                )}
+              >
                 {language === 'ur' ? PORTAL_METADATA.departmentNameUr : PORTAL_METADATA.departmentNameEn}
               </span>
-              <span className="text-xs sm:text-sm text-brand-lime font-medium leading-tight mt-0.5 max-w-md truncate">
+              <span
+                className={cn(
+                  'text-brand-lime font-medium leading-tight mt-0.5 max-w-md truncate',
+                  language === 'ur' ? 'text-xs sm:text-sm' : 'text-[11px] sm:text-sm'
+                )}
+              >
                 {language === 'ur' ? PORTAL_METADATA.officialTaglineUr : PORTAL_METADATA.officialTaglineEn}
               </span>
             </div>
