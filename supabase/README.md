@@ -6,6 +6,11 @@ Two SQL files live in this folder. **Only the first one is required.**
 |---|---|---|---|
 | 1 | `schema.sql` | Yes | Creates the `galiyat_advisories` table + basic access rules |
 | 2 | `updates-01-staff-access.sql` | Optional | Adds the audit + scheduling columns, and restricts writing to a list of staff emails |
+| 3 | `updates-02-snowfall-category.sql` | Optional | Lets the advisory system use the `snowfall` category |
+| 4 | `updates-03-route-status.sql` | Optional | Road status board tables |
+| 5 | `updates-04-map-locations.sql` | Optional | Tourist map locations table |
+| 6 | `updates-05-complaints.sql` | Optional | Online complaints |
+| 7 | `updates-06-tourist-tracking.sql` | For "Track Your Location" | Tracking sessions + location history, token-verified RPCs, RLS, 3-day retention jobs |
 
 Run them in the Supabase SQL editor: project → **SQL Editor** → *New query* → paste → **Run**.
 Both files are safe to run more than once.
@@ -83,3 +88,21 @@ drop function if exists public.is_advisory_staff();
 The free plan has no point-in-time recovery. Once a week, open the dashboard and
 use **Export backup** in the advisory console, or Supabase →
 Table Editor → `galiyat_advisories` → *Export as CSV*.
+
+## Tourist Location Tracking (`updates-06-tourist-tracking.sql`)
+
+Required steps after running the file:
+
+1. The staff list from `updates-01-staff-access.sql` (`public.advisory_staff`) is
+   reused — the SAME officers who manage advisories see the tourist tracking
+   data in `/admin` → **Tourist Locations**.
+2. Enable **pg_cron** (Database → Extensions → pg_cron) so the scheduled jobs
+   from STEP 8 start automatically:
+   expire sessions every 15 min, delete all tracking data after 3 days.
+   Without pg_cron, run `select public.expire_stale_tracking_sessions();` and
+   `select public.cleanup_expired_tracking_data();` manually (weekly is enough
+   for the cleanup; expiry is also derived live in the dashboard).
+3. You can delete a tourist's data immediately at any time from the Table
+   Editor (deleting the session row cascades into its GPS history).
+
+See `docs/tourist-tracking.md` in the project root for the full feature guide.

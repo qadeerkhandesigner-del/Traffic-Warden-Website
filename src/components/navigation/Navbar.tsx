@@ -37,6 +37,7 @@ import {
   TrafficCone,
   Utensils,
   Snowflake,
+  LocateFixed,
   Map as MapIcon,
 } from 'lucide-react';
 import { NAVIGATION_ITEMS } from '../../data/navigation';
@@ -127,6 +128,8 @@ export const Navbar: React.FC<{ className?: string }> = ({ className }) => {
         return <Snowflake className={iconClass} />;
       case 'Map':
         return <MapIcon className={iconClass} />;
+      case 'LocateFixed':
+        return <LocateFixed className={iconClass} />;
       default:
         return <Home className={iconClass} />;
     }

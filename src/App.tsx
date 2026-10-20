@@ -74,6 +74,7 @@ const OnlineComplaint = lazyPage('OnlineComplaint', () => import('./pages/Online
 const GaliyatAdvisoryAdmin = lazyPage('GaliyatAdvisoryAdmin', () => import('./pages/admin/GaliyatAdvisoryAdmin'));
 const WinterTravelSafety = lazyPage('WinterTravelSafety', () => import('./pages/WinterTravelSafety'));
 const TrafficSafety = lazyPage('TrafficSafety', () => import('./pages/TrafficSafety'));
+const TrackLocation = lazyPage('TrackLocation', () => import('./pages/TrackLocation'));
 
 /* The interactive map bundles Leaflet — keep it out of the main chunk so the
    rest of the website stays lightweight. */
@@ -186,6 +187,7 @@ const AppShell: React.FC = () => {
             <Route path="/tourism/galiyat-travel-advisory" element={<GaliyatTravelAdvisory />} />
             <Route path="/tourism/winter-travel-safety" element={<WinterTravelSafety />} />
             <Route path="/tourism/abbottabad-map" element={<AbbottabadMap />} />
+            <Route path="/track-location" element={<TrackLocation />} />
             <Route path="/tourism/mobile-workshop" element={<MobileWorkshop />} />
             <Route path="/tourism/first-aid" element={<FirstAid />} />
             <Route path="/tourism/canteen-mobile" element={<CanteenMobile />} />

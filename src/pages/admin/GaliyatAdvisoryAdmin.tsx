@@ -24,6 +24,7 @@ import { RequireAdminSession } from '../../components/admin/RequireAdminSession'
 import { AdvisoryEditorForm } from '../../components/admin/AdvisoryEditorForm';
 import { RouteStatusAdmin } from '../../components/admin/RouteStatusAdmin';
 import { MapLocationsAdmin } from '../../components/admin/MapLocationsAdmin';
+import { TouristTrackingAdmin } from '../../components/admin/TouristTrackingAdmin';
 import { signOutAdmin, type AdminSession } from '../../services/adminAuth';
 import {
   advisoryStore,
@@ -117,7 +118,7 @@ const AdvisoryDashboard: React.FC<{ session: AdminSession }> = ({ session }) => 
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState<StatusFilter>('all');
   const [categoryFilter, setCategoryFilter] = useState<'all' | AdvisoryCategory>('all');
-  const [activeTab, setActiveTab] = useState<'advisories' | 'routes' | 'map'>('advisories');
+  const [activeTab, setActiveTab] = useState<'advisories' | 'routes' | 'map' | 'tracking'>('advisories');
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -452,6 +453,7 @@ const AdvisoryDashboard: React.FC<{ session: AdminSession }> = ({ session }) => 
             { id: 'advisories' as const, label: 'Advisories' },
             { id: 'routes' as const, label: 'Road Status' },
             { id: 'map' as const, label: 'Map Locations' },
+            { id: 'tracking' as const, label: 'Tourist Locations' },
           ]).map((tab) => (
             <button
               key={tab.id}
@@ -1006,6 +1008,8 @@ const AdvisoryDashboard: React.FC<{ session: AdminSession }> = ({ session }) => 
         {activeTab === 'routes' && <RouteStatusAdmin session={session} />}
 
         {activeTab === 'map' && <MapLocationsAdmin session={session} />}
+
+        {activeTab === 'tracking' && <TouristTrackingAdmin session={session} />}
       </main>
 
       <footer className="border-t border-brand-light-border bg-white">

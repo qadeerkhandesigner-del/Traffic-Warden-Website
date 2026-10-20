@@ -259,6 +259,15 @@ export const NAVIGATION_ITEMS: NavigationItem[] = [
         iconName: 'Map',
       },
       {
+        id: 'track-location',
+        label: 'Track Your Location',
+        labelUrdu: 'اپنی لوکیشن شیئر کریں',
+        description: 'Share your live GPS location with Traffic Police for tourism safety, for as long as you keep tracking on.',
+        descriptionUrdu: 'سیاحتی تحفظ کے لیے اپنی لائیو جی پی ایس لوکیشن ٹریفک پولیس کے ساتھ شیئر کریں — جب تک آپ ٹریکنگ جاری رکھیں گے۔',
+        path: '/track-location',
+        iconName: 'LocateFixed',
+      },
+      {
         id: 'facilitation-center',
         label: 'Traffic Facilitation Center',
         labelUrdu: 'ٹریفک سہولت مرکز',

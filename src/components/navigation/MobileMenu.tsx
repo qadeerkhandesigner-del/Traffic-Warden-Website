@@ -36,6 +36,7 @@ import {
   TrafficCone,
   Utensils,
   Snowflake,
+  LocateFixed,
   Map as MapIcon,
 } from 'lucide-react';
 import { NAVIGATION_ITEMS, EMERGENCY_CONTACTS, PORTAL_METADATA } from '../../data/navigation';
@@ -136,6 +137,8 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
         return <Snowflake className={iconClass} />;
       case 'Map':
         return <MapIcon className={iconClass} />;
+      case 'LocateFixed':
+        return <LocateFixed className={iconClass} />;
       default:
         return <Home className={iconClass} />;
     }
