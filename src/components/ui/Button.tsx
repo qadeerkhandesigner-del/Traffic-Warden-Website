@@ -1,13 +1,18 @@
 import React from 'react';
 import { cn } from '../../lib/utils';
 
-export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'children'> {
   variant?: 'primary' | 'secondary' | 'accent' | 'outline' | 'ghost' | 'emergency';
   size?: 'sm' | 'md' | 'lg';
   fullWidth?: boolean;
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
   children: React.ReactNode;
+  /** When provided, renders a real <a> instead of a <button> — a <button>
+      nested inside an <a> is invalid HTML that Firefox refuses to navigate. */
+  href?: string;
+  target?: React.AnchorHTMLAttributes<HTMLAnchorElement>['target'];
+  rel?: string;
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -19,6 +24,9 @@ export const Button: React.FC<ButtonProps> = ({
   children,
   className,
   disabled,
+  href,
+  target,
+  rel,
   ...props
 }) => {
   const baseStyles =
@@ -50,6 +58,29 @@ export const Button: React.FC<ButtonProps> = ({
     md: 'text-sm px-4 py-2.5 gap-2',
     lg: 'text-base px-6 py-3 gap-2.5',
   };
+
+  if (href) {
+    return (
+      <a
+        href={href}
+        target={target}
+        rel={target === '_blank' && !rel ? 'noopener noreferrer' : rel}
+        className={cn(
+          baseStyles,
+          variants[variant],
+          sizes[size],
+          fullWidth && 'w-full',
+          disabled && 'opacity-50 pointer-events-none',
+          className
+        )}
+        {...(props as React.AnchorHTMLAttributes<HTMLAnchorElement>)}
+      >
+        {leftIcon && <span className="inline-flex shrink-0">{leftIcon}</span>}
+        <span>{children}</span>
+        {rightIcon && <span className="inline-flex shrink-0">{rightIcon}</span>}
+      </a>
+    );
+  }
 
   return (
     <button

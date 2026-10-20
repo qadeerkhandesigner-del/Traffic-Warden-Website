@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from 'react';
-import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { LanguageProvider } from './hooks/useLanguage';
 import { Header } from './components/layout/Header';
 import { Footer } from './components/layout/Footer';
@@ -83,6 +83,7 @@ const AbbottabadMap = lazy(() =>
 
 // 404 Fallback
 const NotFound: React.FC = () => {
+  const navigate = useNavigate();
   React.useEffect(() => {
     document.title = 'Page Not Found | Traffic Warden Abbottabad';
   }, []);
@@ -96,9 +97,9 @@ const NotFound: React.FC = () => {
             The page you are looking for does not exist or has been relocated within the official portal.
           </p>
           <div className="pt-2">
-            <Link to="/">
-              <Button variant="primary">Return to Homepage</Button>
-            </Link>
+            <Button variant="primary" onClick={() => navigate('/')}>
+              Return to Homepage
+            </Button>
           </div>
         </div>
       </PageContainer>

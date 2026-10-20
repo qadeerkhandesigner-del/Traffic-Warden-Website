@@ -141,24 +141,22 @@ export const Contact: React.FC = () => {
             </p>
 
             <div className="pt-2 flex flex-wrap items-center gap-3 justify-center">
-              <a href={`tel:${PORTAL_METADATA.helpline}`}>
-                <Button
-                  variant="accent"
-                  size="lg"
-                  leftIcon={<PhoneCall className="w-5 h-5" />}
-                >
-                  {t('Call 1915', '1915 پر کال کریں')}
-                </Button>
-              </a>
-              <a href="mailto:trafficwardenatd@gmail.com">
-                <Button
-                  variant="outline"
-                  size="lg"
-                  leftIcon={<Mail className="w-5 h-5" />}
-                >
-                  {t('Send Email', 'ای میل بھیجیں')}
-                </Button>
-              </a>
+              <Button
+                variant="accent"
+                size="lg"
+                href={`tel:${PORTAL_METADATA.helpline}`}
+                leftIcon={<PhoneCall className="w-5 h-5" />}
+              >
+                {t('Call 1915', '1915 پر کال کریں')}
+              </Button>
+              <Button
+                variant="outline"
+                href="mailto:trafficwardenatd@gmail.com"
+                size="lg"
+                leftIcon={<Mail className="w-5 h-5" />}
+              >
+                {t('Send Email', 'ای میل بھیجیں')}
+              </Button>
             </div>
           </div>
         </PageContainer>
@@ -264,15 +262,14 @@ export const Contact: React.FC = () => {
                             {t(contact.description, contact.descriptionUrdu)}
                           </div>
                         </div>
-                        <a href={`tel:${contact.number}`}>
-                          <Button
-                            variant={contact.isPrimary ? 'accent' : 'outline'}
-                            size="sm"
-                            leftIcon={<Phone className="w-4 h-4" />}
-                          >
-                            {contact.number}
-                          </Button>
-                        </a>
+                        <Button
+                          variant={contact.isPrimary ? 'accent' : 'outline'}
+                          size="sm"
+                          href={`tel:${contact.number}`}
+                          leftIcon={<Phone className="w-4 h-4" />}
+                        >
+                          {contact.number}
+                        </Button>
                       </div>
                     </CardContent>
                   </Card>
@@ -441,15 +438,14 @@ export const Contact: React.FC = () => {
                       )}
                     </div>
                     <div className="pt-2">
-                      <a
+                      <Button
+                        variant="outline"
+                        size="sm"
                         href="https://maps.google.com/?q=34.141108254541614,73.2088187126538"
                         target="_blank"
-                        rel="noopener noreferrer"
                       >
-                        <Button variant="outline" size="sm">
-                          {t('Open in Google Maps', 'گوگل میپس میں کھولیں')}
-                        </Button>
-                      </a>
+                        {t('Open in Google Maps', 'گوگل میپس میں کھولیں')}
+                      </Button>
                     </div>
                   </div>
                 </div>

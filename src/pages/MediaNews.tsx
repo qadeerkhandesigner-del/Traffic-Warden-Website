@@ -1,12 +1,27 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { PageContainer } from '../components/layout/PageContainer';
 import { useLanguage } from '../hooks/useLanguage';
 import { Card, CardContent, CardHeader } from '../components/ui/Card';
 import { ExternalLink, Users } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 
+declare global {
+  interface Window {
+    FB?: {
+      XFBML?: { parse?: (node?: HTMLElement) => void };
+      Event?: { subscribe?: (name: string, cb: () => void) => void };
+    };
+  }
+}
+
 export const MediaNews: React.FC = () => {
   const { language, t } = useLanguage();
+  /* Facebook page plugins (embedded feeds) fail to render on some networks,
+     browsers with tracking protection or when Facebook requires a login.
+     After mounting, the SDK is watched; if the plugins still show no iframe
+     after a few seconds, an honest fallback panel is displayed. */
+  const [embedFailed, setEmbedFailed] = useState(false);
+  const pollRef = useRef<number | null>(null);
 
   useEffect(() => {
     document.title = t(
@@ -14,16 +29,47 @@ export const MediaNews: React.FC = () => {
       'میڈیا اور خبریں | ٹریفک وارڈن ایبٹ آباد — خیبر پختونخوا پولیس'
     );
 
+    /* Parse the XFBML markup as soon as — or whenever — the SDK is ready.
+       Without this the .fb-page divs render as empty blockquotes forever. */
+    const parseFb = () => {
+      window.FB?.XFBML?.parse?.();
+    };
+
     if (!document.getElementById('facebook-jssdk')) {
       const script = document.createElement('script');
       script.id = 'facebook-jssdk';
       script.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v19.0';
       script.async = true;
       script.defer = true;
+      script.onload = parseFb;
       document.body.appendChild(script);
-    } else if ((window as any).FB) {
-      (window as any).FB.XFBML.parse();
+    } else {
+      parseFb();
     }
+
+    /* Watch the plugins: if no embed iframe appears, show the fallback. The
+       same check clears itself if Facebook renders late. */
+    let checks = 0;
+    pollRef.current = window.setInterval(() => {
+      checks += 1;
+      const rendered = document.querySelector('.fb-page iframe') !== null;
+      setEmbedFailed(checks >= 4 && !rendered);
+      if (rendered && pollRef.current !== null) {
+        window.clearInterval(pollRef.current);
+        pollRef.current = null;
+      }
+      if (checks >= 10 && pollRef.current !== null) {
+        window.clearInterval(pollRef.current);
+        pollRef.current = null;
+      }
+    }, 1200);
+
+    return () => {
+      if (pollRef.current !== null) {
+        window.clearInterval(pollRef.current);
+        pollRef.current = null;
+      }
+    };
   }, [language, t]);
 
   const pages = [
@@ -96,21 +142,24 @@ export const MediaNews: React.FC = () => {
                         </p>
                       </div>
                     </div>
-                    <a href={page.href} target="_blank" rel="noopener noreferrer">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        leftIcon={<ExternalLink className="w-4 h-4" />}
-                      >
-                        {t('Visit Page', 'پیج دیکھیں')}
-                      </Button>
-                    </a>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      href={page.href}
+                      target="_blank"
+                      leftIcon={<ExternalLink className="w-4 h-4" />}
+                    >
+                      {t('Visit Page', 'پیج دیکھیں')}
+                    </Button>
                   </div>
                 </CardHeader>
                 <CardContent className="pt-0">
+                  {/* Embedded Facebook page feed. data-lazy removed: it delays
+                      the iframe until scrolled, which makes the feed look
+                      broken on tall cards. */}
                   <div className="rounded-2xl overflow-hidden border border-brand-light-border bg-white flex justify-center">
                     <div
-                      className="fb-page"
+                      className={`fb-page${embedFailed ? ' hidden' : ''}`}
                       data-href={page.url}
                       data-tabs="timeline"
                       data-width="500"
@@ -119,12 +168,43 @@ export const MediaNews: React.FC = () => {
                       data-adapt-container-width="true"
                       data-hide-cover="false"
                       data-show-facepile="false"
-                      data-lazy="true"
                     >
                       <blockquote cite={page.url} className="fb-xfbml-parse-ignore">
                         <a href={page.url}>{t(page.titleEn, page.titleUr)}</a>
                       </blockquote>
                     </div>
+                    {embedFailed && (
+                      <div className="w-full flex flex-col items-center justify-center gap-4 py-14 px-6 text-center">
+                        <div className="w-14 h-14 rounded-2xl bg-[#1877F2]/10 flex items-center justify-center">
+                          <svg className="w-7 h-7 text-[#1877F2]" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                          </svg>
+                        </div>
+                        <div className="space-y-2 max-w-md">
+                          <p className="text-sm font-semibold text-brand-dark">
+                            {t(
+                              'Facebook feed unavailable here',
+                              'فیس بک فیڈ یہاں دستیاب نہیں'
+                            )}
+                          </p>
+                          <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                            {t(
+                              'Facebook embeds can be blocked by tracking protection, browser extensions or a login requirement. You can read all official updates directly on the Facebook page.',
+                              'فیس بک ایمبیڈ کچھ براؤزرز، ایکسٹینشنز یا لاگ ان کی ضرورت کی وجہ سے بند ہو سکتا ہے۔ تمام سرکاری اپڈیٹس آپ سیدھا فیس بک پیج پر دیکھ سکتے ہیں۔'
+                            )}
+                          </p>
+                        </div>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          href={page.href}
+                          target="_blank"
+                          leftIcon={<ExternalLink className="w-4 h-4" />}
+                        >
+                          {t('Open on Facebook', 'فیس بک پر کھولیں')}
+                        </Button>
+                      </div>
+                    )}
                   </div>
                 </CardContent>
               </Card>
@@ -152,11 +232,5 @@ export const MediaNews: React.FC = () => {
     </div>
   );
 };
-
-declare global {
-  interface Window {
-    FB?: any;
-  }
-}
 
 export default MediaNews;
