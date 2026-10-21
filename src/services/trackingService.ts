@@ -32,6 +32,8 @@ export interface TrackingSessionRecord {
   id: string;
   fullName: string;
   phoneNumber: string;
+  /** Optional — e.g. "LEA-1234". Stored so the control room can match the vehicle. */
+  vehicleNumber: string | null;
   groupSize: number;
   consentTimestamp: string | null;
   startedAt: string;
@@ -54,6 +56,8 @@ export interface TrackingPoint {
 export interface CreateTrackingInput {
   fullName: string;
   phoneNumber: string;
+  /** Optional vehicle registration number, e.g. "LEA-1234". */
+  vehicleNumber?: string;
   groupSize: number;
   consent: boolean;
 }
@@ -328,9 +332,16 @@ export async function createTrackingSession(
   const token = generateSessionToken();
   const client = requireClient();
 
+  /* Vehicle number is optional; normalize the client-side copy the same way
+     the SQL function does so the persisted session matches the database. */
+  const vehicleNumber = input.vehicleNumber
+    ? input.vehicleNumber.toUpperCase().replace(/\s+/g, ' ').trim().slice(0, 15)
+    : '';
+
   const { data, error } = await client.rpc('create_tracking_session', {
     p_full_name: input.fullName.trim().replace(/\s+/g, ' '),
     p_phone_number: input.phoneNumber,
+    p_vehicle_number: vehicleNumber || null,
     p_group_size: input.groupSize,
     p_consent_given: input.consent === true,
     p_token: token,
@@ -350,6 +361,7 @@ export async function createTrackingSession(
     token,
     fullName: input.fullName.trim().replace(/\s+/g, ' '),
     phoneNumber: normalizePkMobileNumber(input.phoneNumber) ?? input.phoneNumber,
+    vehicleNumber: vehicleNumber || null,
     groupSize: input.groupSize,
     consentTimestamp: new Date().toISOString(),
     startedAt: row.started_at as string,

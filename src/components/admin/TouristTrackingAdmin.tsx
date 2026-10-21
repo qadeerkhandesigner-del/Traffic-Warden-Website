@@ -3,6 +3,7 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import {
   AlertTriangle,
+  Car,
   ChevronRight,
   Clock,
   CloudOff,
@@ -57,6 +58,7 @@ interface SessionRow {
   id: string;
   full_name: string;
   phone_number: string;
+  vehicle_number: string | null;
   group_size: number;
   consent_timestamp: string | null;
   started_at: string;
@@ -80,6 +82,7 @@ interface SessionView {
   id: string;
   fullName: string;
   phoneNumber: string;
+  vehicleNumber: string | null;
   groupSize: number;
   startedAt: string;
   expiresAt: string;
@@ -267,6 +270,7 @@ export const TouristTrackingAdmin: React.FC<{ session: AdminSession }> = () => {
           id: row.id,
           fullName: row.full_name,
           phoneNumber: row.phone_number,
+          vehicleNumber: row.vehicle_number ?? null,
           groupSize: row.group_size,
           startedAt: row.started_at,
           expiresAt: row.expires_at,
@@ -808,6 +812,9 @@ export const TouristTrackingAdmin: React.FC<{ session: AdminSession }> = () => {
           <dl className="grid grid-cols-2 gap-x-4 gap-y-2.5 text-xs sm:grid-cols-3 lg:grid-cols-4">
             <Detail icon={<Phone className="h-3.5 w-3.5" />} label="Mobile number">
               <span dir="ltr" className="tabular-nums">{selected.phoneNumber}</span>
+            </Detail>
+            <Detail icon={<Car className="h-3.5 w-3.5" />} label="Vehicle">
+              <span dir="ltr" className="tabular-nums">{selected.vehicleNumber ?? '—'}</span>
             </Detail>
             <Detail icon={<Users className="h-3.5 w-3.5" />} label="Group size">
               {selected.groupSize} {selected.groupSize === 1 ? 'person' : 'people'}

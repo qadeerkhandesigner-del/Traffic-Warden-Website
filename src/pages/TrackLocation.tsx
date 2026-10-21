@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';import { Link } from 'react-router-dom';
 import {
   AlertTriangle,
+  Car,
   CheckCircle2,
   CircleStop,
   Clock,
@@ -79,7 +80,13 @@ function timeLabel(iso: string | null): string {
   });
 }
 
-const INITIAL_FORM = { fullName: '', phoneNumber: '', groupSize: '1', consent: false };
+const INITIAL_FORM = {
+  fullName: '',
+  phoneNumber: '',
+  vehicleNumber: '',
+  groupSize: '1',
+  consent: false,
+};
 
 /* -------------------------------------------------------------------------- */
 /*                                   page                                     */
@@ -440,6 +447,15 @@ const TrackLocationPage: React.FC = () => {
         'درست پاکستانی موبائل نمبر درج کریں، مثلاً 0300 1234567 یا +923001234567۔'
       );
     }
+    /* Vehicle number is optional. When provided it must look like a plate,
+       e.g. "LEA-1234" / "ABD 1234" — letters, digits, spaces and dashes. */
+    const vehicle = form.vehicleNumber.trim();
+    if (vehicle && !/^[A-Za-z0-9\-\s]{3,15}$/.test(vehicle)) {
+      next.vehicleNumber = t(
+        'Enter a valid vehicle number (3–15 characters, e.g. LEA-1234) or leave it empty.',
+        'درست گاڑی کا نمبر درج کریں (3 تا 15 حروف، مثلاً LEA-1234) یا اسے خالی چھوڑ دیں۔'
+      );
+    }
     const groupSize = Number.parseInt(form.groupSize, 10);
     if (!Number.isFinite(groupSize) || groupSize < 1 || groupSize > 50) {
       next.groupSize = t('Total people: a whole number from 1 to 50.', 'کل افراد: 1 تا 50 کا پورا عدد۔');
@@ -505,6 +521,7 @@ const TrackLocationPage: React.FC = () => {
       const created = await createTrackingSession({
         fullName: form.fullName,
         phoneNumber: form.phoneNumber,
+        vehicleNumber: form.vehicleNumber,
         groupSize: Number.parseInt(form.groupSize, 10),
         consent: form.consent,
       });
@@ -680,6 +697,42 @@ const TrackLocationPage: React.FC = () => {
                     />
                   </div>
                   {validation.phoneNumber && <ValidationHint id="track-phone-error" text={validation.phoneNumber} />}
+                </div>
+
+                {/* Vehicle number (optional) */}
+                <div>
+                  <label htmlFor="track-vehicle" className="mb-1.5 block text-sm font-semibold text-brand-dark">
+                    {t('Vehicle Number', 'گاڑی کا نمبر')}{' '}
+                    <span className="text-xs font-medium text-slate-400">
+                      ({t('optional', 'اختیاری')})
+                    </span>
+                  </label>
+                  <div className="relative">
+                    <Car className="pointer-events-none absolute start-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" aria-hidden="true" />
+                    <input
+                      id="track-vehicle"
+                      type="text"
+                      dir="ltr"
+                      autoComplete="off"
+                      maxLength={15}
+                      value={form.vehicleNumber}
+                      onChange={(e) => setForm((f) => ({ ...f, vehicleNumber: e.target.value.toUpperCase() }))}
+                      aria-invalid={Boolean(validation.vehicleNumber)}
+                      aria-describedby={validation.vehicleNumber ? 'track-vehicle-error' : undefined}
+                      className={cn(
+                        'w-full rounded-lg border bg-white ps-9 py-2.5 pe-3.5 text-sm text-brand-dark placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-blue',
+                        validation.vehicleNumber ? 'border-red-400' : 'border-slate-300'
+                      )}
+                      placeholder={t('e.g. LEA-1234', 'مثلاً LEA-1234')}
+                    />
+                  </div>
+                  <p className="mt-1 text-xs text-slate-500">
+                    {t(
+                      'Helps the control room match your route with your vehicle during any emergency.',
+                      'کسی ایمرجنسی کے دوران کنٹرول روم کو آپ کا روٹ آپ کی گاڑی سے ملانے میں مددگار ہے۔'
+                    )}
+                  </p>
+                  {validation.vehicleNumber && <ValidationHint id="track-vehicle-error" text={validation.vehicleNumber} />}
                 </div>
 
                 {/* Group size */}
