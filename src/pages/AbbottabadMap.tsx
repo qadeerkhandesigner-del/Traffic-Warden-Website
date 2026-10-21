@@ -414,7 +414,7 @@ const AbbottabadMap: React.FC = () => {
            browser HTTP cache entirely, so a stale cached boundary can never
            render after the file is regenerated. */
         const response = await fetch(
-          `${import.meta.env.BASE_URL}data/abbottabad-district.geojson?v=4`,
+          `${import.meta.env.BASE_URL}data/abbottabad-district.geojson?v=13`,
           { cache: 'no-store' }
         );
         if (!response.ok) throw new Error(`boundary-http-${response.status}`);

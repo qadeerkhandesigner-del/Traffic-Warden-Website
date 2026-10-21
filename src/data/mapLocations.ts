@@ -77,9 +77,12 @@ export function getMapCategoryMeta(category: MapCategory): MapCategoryMeta {
 export const MAP_DEFAULT_CENTER: [number, number] = [34.1688, 73.2215];
 export const MAP_DEFAULT_ZOOM = 11;
 /** Matches the outer bounds of the mini map frame on the Reset control. */
+/** Wider bounds so users can pan beyond the district to surrounding areas,
+ *  but the north edge stops below Gari Habibullah (Mansehra) and keeps the
+ *  whole Galiyat ridge (Nathia Gali 34.39°N) inside. */
 export const MAP_BOUNDS: [number, number][] = [
-  [33.75, 72.5],
-  [34.85, 74.25],
+  [33.5, 72.2],
+  [34.4, 74.6],
 ];
 
 /* -------------------------------------------------------------------------- */
