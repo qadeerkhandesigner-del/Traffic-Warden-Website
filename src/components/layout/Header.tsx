@@ -44,8 +44,8 @@ export const Header: React.FC = () => {
                 className={cn(
                   'font-extrabold tracking-tight text-white font-poppins leading-none truncate',
                   language === 'ur'
-                    ? 'text-lg sm:text-xl lg:text-2xl'
-                    : 'text-base sm:text-xl lg:text-2xl'
+                    ? 'text-base sm:text-xl lg:text-2xl'
+                    : 'text-sm sm:text-xl lg:text-2xl'
                 )}
               >
                 {language === 'ur' ? PORTAL_METADATA.departmentNameUr : PORTAL_METADATA.departmentNameEn}
@@ -53,7 +53,7 @@ export const Header: React.FC = () => {
               <span
                 className={cn(
                   'text-brand-lime font-medium leading-tight mt-0.5 max-w-md truncate',
-                  language === 'ur' ? 'text-xs sm:text-sm' : 'text-[11px] sm:text-sm'
+                  language === 'ur' ? 'text-[11px] sm:text-sm' : 'text-[10px] sm:text-sm'
                 )}
               >
                 {language === 'ur' ? PORTAL_METADATA.officialTaglineUr : PORTAL_METADATA.officialTaglineEn}
