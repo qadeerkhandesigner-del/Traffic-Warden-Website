@@ -24,6 +24,7 @@ import { Breadcrumbs } from '../components/ui/Breadcrumbs';
 import { Button } from '../components/ui/Button';
 import { Card, CardContent, CardHeader } from '../components/ui/Card';
 import { TrackSelfMap } from '../components/tracking/TrackSelfMap';
+import { OfflineMapCard } from '../components/tracking/OfflineMapCard';
 import { useLanguage } from '../hooks/useLanguage';
 import { cn } from '../lib/utils';
 import {
@@ -808,6 +809,11 @@ const TrackLocationPage: React.FC = () => {
             </CardContent>
           </Card>
         )}
+
+        {/* --------------------------- offline map download -------------------- */}
+        <div className="mx-auto mt-8 max-w-2xl">
+          <OfflineMapCard />
+        </div>
 
         {/* ------------------------------ active view -------------------------- */}
         {isActive && session && (

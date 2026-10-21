@@ -23,6 +23,7 @@ import { Breadcrumbs } from '../components/ui/Breadcrumbs';
 import { useLanguage } from '../hooks/useLanguage';
 import { cn } from '../lib/utils';
 import { mapLocationStore } from '../services/mapLocationStore';
+import { OfflineMapCard } from '../components/tracking/OfflineMapCard';
 import {
   MAP_BOUNDS,
   MAP_CATEGORIES,
@@ -617,6 +618,9 @@ const AbbottabadMap: React.FC = () => {
 
       <PageContainer>
         <div className="space-y-5 py-6 sm:py-8 lg:py-10">
+
+          {/* offline map download (Abbottabad City + Galiyat tiles) */}
+          <OfflineMapCard className="max-w-3xl" />
 
           {/* ------------------------------ LAYOUT ----------------------------- */}
           <div className="space-y-3">
