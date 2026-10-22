@@ -6,7 +6,6 @@ import {
   CloudSun,
   Compass,
   Map,
-  Eye,
   HeartHandshake,
   Info,
   MapPin,
@@ -899,59 +898,6 @@ export const WelcomeAbbottabad: React.FC = () => {
                   </div>
                 </div>
               </div>
-            </div>
-          </section>
-
-          {/* --------------------------------- GALLERY ---------------------------- */}
-          <section aria-labelledby="gallery-heading">
-            <div className="mb-4 sm:mb-6 text-center">
-              <div className="inline-flex items-center gap-2 rounded-full border border-brand-blue-100 bg-brand-blue-50 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-brand-blue sm:text-[11px]">
-                <Eye className="h-3 w-3 sm:h-3.5 sm:w-3.5" aria-hidden="true" />
-                {t('Gallery', 'تصویری جھلکیاں')}
-              </div>
-              <h2
-                id="gallery-heading"
-                className="mt-2 text-balance text-lg font-bold text-brand-dark sm:text-xl md:text-2xl lg:text-3xl"
-              >
-                {t('Scenes from Abbottabad & Galiyat', 'ایبٹ آباد اور گلیات کے مناظر')}
-              </h2>
-              <p className="mx-auto mt-2 max-w-3xl text-sm text-brand-light-muted sm:text-base">
-                {t(
-                  'A visual glimpse of the tourist attractions waiting to be explored.',
-                  'دریافت کیے جانے والے سیاحتی مقامات کی ایک تصویری جھلک۔'
-                )}
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {ATTRACTIONS.map((attraction) => (
-                <button
-                  key={`gallery-${attraction.id}`}
-                  type="button"
-                  onClick={() => setSelectedImage(attraction)}
-                  className="group relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-brand-light-border bg-slate-900 shadow-gov transition-shadow hover:shadow-gov-md focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue-400"
-                >
-                  <img
-                    src={attraction.image}
-                    alt={attraction.titleEn}
-                    loading="lazy"
-                    className="h-full w-full object-cover opacity-95 transition-opacity duration-300 group-hover:opacity-100"
-                  />
-                  <span
-                    className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent opacity-80 transition-opacity duration-300 group-hover:opacity-95"
-                    aria-hidden="true"
-                  />
-                  <span className="absolute inset-x-2 bottom-2 z-10 text-start sm:inset-x-3 sm:bottom-3">
-                    <span className="block text-xs font-semibold leading-snug text-white sm:text-sm">
-                      {t(attraction.titleEn, attraction.titleUr)}
-                    </span>
-                    <span className="mt-1 inline-flex items-center gap-1 text-[10px] font-bold text-brand-lime opacity-0 transition-opacity group-hover:opacity-100 sm:text-[11px]">
-                      <Maximize2 className="h-3 w-3 sm:h-3.5 sm:w-3.5" aria-hidden="true" />
-                      {t('View full size', 'بڑی تصویر دیکھیں')}
-                    </span>
-                  </span>
-                </button>
-              ))}
             </div>
           </section>
         </div>
