@@ -13,7 +13,7 @@ import {
 
 // Authentic Officer Portraits from project
 import igpImg from '/IGP POLICE Zulfiqar Hameed.jpg';
-import digImg from '/DIG Hazara Jahanzaib Nazeer khan.jpg';
+import digImg from '/DIG Nazeer Jahanzeb Khan updated image.jpg';
 import dpoImg from '/DPO Haroon Rasheed Updated.jpg';
 import sspImg from '/SSP Traffic Muhammad Suleman.jpg';
 import dspHavalianImg from '/DSP Circle Havalian Muhammad Sajjad.jpg';

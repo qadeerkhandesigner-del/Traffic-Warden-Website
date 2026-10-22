@@ -11,7 +11,7 @@ import {
   ArrowRight
 } from 'lucide-react';
 import officerMsgImg from '/Officer Message Image.jpg';
-import digImg from '/DIG Hazara Jahanzaib Nazeer khan.jpg';
+import digImg from '/DIG Nazeer Jahanzeb Khan updated image.jpg';
 import dpoImg from '/DPO Haroon Rasheed Updated.jpg';
 import logoImg from '/Traffic-Logo-Updated.png';
 

@@ -322,7 +322,7 @@ export const Home: React.FC = () => {
                 nameUr: 'ڈی آئی جی ہزارہ جہانزیب نزیر خان',
                 rankEn: 'Deputy Inspector General, Hazara Range',
                 rankUr: 'ڈپٹی انسپکٹر جنرل، ہزارہ رینج',
-                image: '/DIG Hazara Jahanzaib Nazeer khan.jpg',
+                image: '/DIG Nazeer Jahanzeb Khan updated image.jpg',
               },
               {
                 nameEn: 'DPO Abbottabad Haroon Rasheed',

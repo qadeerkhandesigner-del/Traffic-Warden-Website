@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import {
+  AlertTriangle,
   CheckCircle2,
   Clock,
   CloudSun,
   Compass,
+  Map,
   Eye,
   HeartHandshake,
   Info,
@@ -69,6 +71,45 @@ const WELCOME_FACTS = [
     icon: ShieldCheck,
     en: 'Committed to safe, smooth and enjoyable journeys',
     ur: 'محفوظ، ہموار اور خوشگوار سفر کا عزم',
+  },
+];
+
+interface RouteMap {
+  id: string;
+  image: string;
+  titleEn: string;
+  titleUr: string;
+  descEn: string;
+  descUr: string;
+  badgeEn: string;
+  badgeUr: string;
+}
+
+/* Official route maps (images kept in public/Map Images — paths are URL-encoded). */
+const ROUTE_MAPS: RouteMap[] = [
+  {
+    id: 'road-safety-map',
+    image: '/Map%20Images/Map%2001.jpg',
+    titleEn: 'Galiyat Area Abbottabad — Traffic & Road Safety Map',
+    titleUr: 'گلیات ایریا ایبٹ آباد — ٹریفک اور روڈ سیفٹی میپ',
+    descEn:
+      'Road conditions along the Harno–Barrian route: slipping areas, low-signal zones, toll plaza and important points marked for a safe journey.',
+    descUr:
+      'ہارنو سے بریان تک روٹ پر سڑک کی صورتحال: پھسلاوٹ والے علاقے، کم سگنل ایریاز، ٹول پلازا اور اہم مقامات محفوظ سفر کے لیے نشان زد۔',
+    badgeEn: 'Slipping & Low Signal Areas',
+    badgeUr: 'پھسلاوٹ اور کم سگنل ایریاز',
+  },
+  {
+    id: 'tourist-route-map',
+    image: '/Map%20Images/Map%2002.jpg',
+    titleEn: 'Galiyat Tourist Map — Harno to Barrian',
+    titleUr: 'گلیات ٹورسٹ میپ — ہارنو سے بریان',
+    descEn:
+      'All nine stops on the route with approximate distances and travel times, plus viewpoints, picnic spots and trekking peaks along the way.',
+    descUr:
+      'روٹ پر تمام نو مقامات فاصلے اور سفر کے وقت کے ساتھ، نیز راستے میں نظارہ جات، پکنک مقامات اور ٹریکنگ چوٹیاں۔',
+    badgeEn: 'Distances & Tourist Spots',
+    badgeUr: 'فاصلے اور سیاحتی مقامات',
   },
 ];
 
@@ -720,6 +761,75 @@ export const WelcomeAbbottabad: React.FC = () => {
               <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-brand-blue" aria-hidden="true" />
               {t(PARK_NOTICE.en, PARK_NOTICE.ur)}
             </p>
+          </section>
+
+          {/* ------------------------------ ROUTE MAPS ---------------------------- */}
+          <section id="route-maps" aria-labelledby="route-maps-heading" className="scroll-mt-20 sm:scroll-mt-24">
+            <div className="mb-4 sm:mb-6 text-center">
+              <div className="inline-flex items-center gap-2 rounded-full border border-brand-blue-100 bg-brand-blue-50 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-brand-blue sm:text-[11px]">
+                <Map className="h-3 w-3 sm:h-3.5 sm:w-3.5" aria-hidden="true" />
+                {t('Route Maps', 'سفری نقشے')}
+              </div>
+              <h2
+                id="route-maps-heading"
+                className="mt-2 text-balance text-lg font-bold text-brand-dark sm:text-xl md:text-2xl lg:text-3xl"
+              >
+                {t(
+                  'Galiyat Route Maps — Harno to Barrian',
+                  'گلیات کے سفری نقشے — ہارنو سے بریان'
+                )}
+              </h2>
+              <p className="mx-auto mt-2 max-w-3xl text-sm text-brand-light-muted sm:text-base">
+                {t(
+                  'Official route maps by Traffic Police Abbottabad covering road safety conditions and tourist spots across the Galiyat belt.',
+                  'ٹریفک پولیس ایبٹ آباد کی جانب سے باضابطہ سفری نقشے، جن میں گلیات کی سڑکوں کی صورتحال اور سیاحتی مقامات شامل ہیں۔'
+                )}
+              </p>
+            </div>
+
+            <div className="space-y-4 sm:space-y-6">
+              {ROUTE_MAPS.map((routeMap, index) => (
+                <article
+                  key={routeMap.id}
+                  className="overflow-hidden rounded-2xl border border-brand-light-border bg-brand-light-surface shadow-gov transition-all hover:border-brand-blue-300 hover:shadow-gov-md"
+                >
+                  <img
+                    src={routeMap.image}
+                    alt={routeMap.titleEn}
+                    loading="lazy"
+                    className={
+                      index === 1
+                        ? 'mx-auto h-auto w-full max-w-[1210px]'
+                        : 'h-auto w-full'
+                    }
+                  />
+                  <div className="flex flex-col gap-2.5 border-t border-brand-light-border p-3 sm:p-4 md:flex-row md:items-center md:justify-between">
+                    <div>
+                      <h3 className="text-sm font-bold leading-snug text-brand-dark sm:text-base">
+                        {t(routeMap.titleEn, routeMap.titleUr)}
+                      </h3>
+                      <p className="mt-1 text-xs leading-relaxed text-brand-light-muted sm:text-sm">
+                        {t(routeMap.descEn, routeMap.descUr)}
+                      </p>
+                    </div>
+                    <span
+                      className={`inline-flex shrink-0 items-center gap-1.5 self-start rounded-full px-3 py-1.5 text-[11px] font-bold sm:text-xs ${
+                        index === 0
+                          ? 'border border-red-200 bg-red-50 text-red-700'
+                          : 'border border-brand-blue-100 bg-brand-blue-50 text-brand-blue'
+                      }`}
+                    >
+                      {index === 0 ? (
+                        <AlertTriangle className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+                      ) : (
+                        <Route className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+                      )}
+                      {t(routeMap.badgeEn, routeMap.badgeUr)}
+                    </span>
+                  </div>
+                </article>
+              ))}
+            </div>
           </section>
 
           {/* --------------------------- TRAVEL SMART / SAFE ---------------------- */}
