@@ -46,7 +46,7 @@ import type { AdminSession } from '../../services/adminAuth';
  *                   (device offline / browser closed / GPS lost) — never
  *                   reported as live.
  *   • "Expired"   → past `expires_at` (the server-set retention window, now
- *                   3 days — there is no shorter tourist-facing cap).
+ *                   2 days — there is no shorter tourist-facing cap).
  *   • "Stopped"   → the tourist pressed Stop.
  */
 
@@ -609,7 +609,7 @@ export const TouristTrackingAdmin: React.FC<{ session: AdminSession }> = () => {
           </h1>
           <p className="mt-1 max-w-2xl text-sm text-brand-light-muted">
             Authorized live view of "Track Your Location" tourism-safety sessions. Personal data is shown only to
-            officers in the staff list and auto-deletes after 3 days.
+            officers in the staff list and auto-deletes after 2 days.
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-x-3 gap-y-2">

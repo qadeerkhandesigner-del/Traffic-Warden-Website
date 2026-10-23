@@ -55,18 +55,32 @@ In the Supabase dashboard **SQL Editor**, run in order (all idempotent):
         rule), accepts batches of ≤ 200.
       - `stop_tracking_session(session_id, token)`.
     - Maintenance RPCs: `expire_stale_tracking_sessions()`,
-      `cleanup_expired_tracking_data(interval)` (hard-capped at 3 days).
+      `cleanup_expired_tracking_data(interval)` (hard-capped at 2 days).
     - **RLS enabled on both tables with NO anon policy** — a visitor cannot
       read/write anyone's data via the normal REST API. Staff SELECT policies
       gate on the existing `is_advisory_staff()` function.
 
 3. `updates-07-tourist-tracking-no-cap.sql` — **no tourist-facing duration
    limit**: tracking runs as long as the tourist keeps it on. Sessions are
-   bounded internally by the 3-day retention window (aligned with automatic
+   bounded internally by the 2-day retention window (aligned with automatic
    deletion), so an abandoned session can never outlive its data. Sessions
    created before update 07 keep their old window and simply expire sooner.
 
-4. Enable **pg_cron** (Database → Extensions → pg_cron) — STEP 8 of the
+4. `updates-08-staff-delete-tracking.sql` — staff-only DELETE policies for
+   sessions and their GPS history.
+
+5. `updates-09-tracking-vehicle-number.sql` — optional vehicle registration
+   number on tracking sessions.
+
+6. `updates-10-two-day-retention.sql` — **shortens retention from 3 days to
+   2 days**: `create_tracking_session()` now sets `expires_at = start + 2 days`,
+   `cleanup_expired_tracking_data()` defaults to and is hard-capped at 2 days,
+   and sessions that are still running are shortened to the same window.
+   Run the optional `select public.cleanup_expired_tracking_data();` at the end
+   of that file if the new window should apply immediately instead of waiting
+   for the next daily cron run.
+
+7. Enable **pg_cron** (Database → Extensions → pg_cron) — STEP 8 of the
    migration then auto-schedules:
    - `expire-tracking-sessions` — every 15 min;
    - `cleanup-tracking-data` — daily 03:23 UTC.
@@ -75,7 +89,7 @@ In the Supabase dashboard **SQL Editor**, run in order (all idempotent):
 (`select public.expire_stale_tracking_sessions();` /
 `select public.cleanup_expired_tracking_data();`). Display never depends on the
 scheduler: the dashboard derives "expired" from `expires_at` at query time and
-the RPCs reject late points server-side, so the session window and the 3-day
+the RPCs reject late points server-side, so the session window and the 2-day
 deletion only lag behind cron availability, not correctness.
 
 ---
@@ -96,9 +110,9 @@ deletion only lag behind cron availability, not correctness.
 - **No service-role key** in frontend code — the public bundle uses only the
   publishable/anon key; the dangerous key is never referenced anywhere.
 - **Rate limiting:** per-phone session caps, ≤ 200-point batches, ≥ 4 s
-  spacing between accepted points, ≤ 3 days retention by construction.
+  spacing between accepted points, ≤ 2 days retention by construction.
 - **Data minimisation:** name, phone, group size, consent timestamp, GPS only.
-  Auto-deleted after 3 days (pg_cron); cascade guarantees GPS history dies with
+  Auto-deleted after 2 days (pg_cron); cascade guarantees GPS history dies with
   its session row.
 
 ---
@@ -108,9 +122,9 @@ deletion only lag behind cron availability, not correctness.
 - Registration validates name (2–80), Pakistani mobile
   (`0300…/0092…/+92…/92…/3…` → normalised to `+92 3XXXXXXXXX`), group size
   1–50, and **requires the consent checkbox** (location shared for as long as
-  the tourist keeps tracking on, stoppable anytime, auto-deleted after 3 days).
+  the tourist keeps tracking on, stoppable anytime, auto-deleted after 2 days).
 - **No duration limit is shown or imposed from the tourist side**: tracking
-  continues until the tourist presses Stop (the server-side 3-day retention
+  continues until the tourist presses Stop (the server-side 2-day retention
   bound exists only so an abandoned session cannot outlive its data).
 - Clicking **Start Tracking** first asks the browser for a GPS fix
   (`getCurrentPosition`). **Only if the fix succeeds** does it call
@@ -131,7 +145,7 @@ deletion only lag behind cron availability, not correctness.
 - Reload recovery: an active session is re-detected from local storage; GPS is
   only re-attached when the user taps **Resume live sharing**.
 - Window end (rare): a 30-s timer ends the UI only after the server-set
-  3-day retention window; the RPCs independently reject anything past it.
+  2-day retention window; the RPCs independently reject anything past it.
 
 ### Offline queueing
 
@@ -256,7 +270,7 @@ Run through after applying §2 against a **test** project key.
 - [ ] Deny permission → **no session row is created** (check Table Editor) and
       an explicit error is shown.
 - [ ] Allow permission → session row appears with a server-set `expires_at`
-      (start + 3 days after update 07) and first point in `location_history`.
+      (start + 2 days after update 10) and first point in `location_history`.
       first point in `location_history`.
 
 **Live updates**
@@ -284,16 +298,16 @@ Run through after applying §2 against a **test** project key.
       even if the tourist page is somehow still alive.
 - [ ] (pg_cron) after 15 min an expired session's status flips to `expired`;
       `cron.job_run_details` shows both jobs running.
-- [ ] Insert a session with `created_at` > 3 days old → after the daily cleanup
+- [ ] Insert a session with `created_at` > 2 days old → after the daily cleanup
       job its row and GPS history are gone.
 
 ---
 
 ## 10. Remaining manual steps / known limits
 
-1. **Run the SQL migration** (`updates-06-tourist-tracking.sql`) — code is
+1. **Run the SQL migrations** in order (`updates-06` → `updates-10`) — code is
    written to handle a mis-configured backend with errors, but the feature is
-   inert until the migration is applied.
+   inert until the migrations are applied.
 2. **Enable pg_cron** (or schedule the two step-6 functions externally).
 3. **Delete legacy `VITE_ADMIN_EMAIL`/`VITE_ADMIN_PASSWORD`** from `.env`.
 4. Confirm staff emails are in `advisory_staff` — officers with unlisted

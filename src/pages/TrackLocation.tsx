@@ -298,7 +298,7 @@ const TrackLocationPage: React.FC = () => {
   useEffect(() => {
     if (phase !== 'active') return;
 
-    /* Server-side window safety net (normally only reached after the 3-day
+    /* Server-side window safety net (normally only reached after the 2-day
        retention window). Tracking is never stopped before the user stops it. */
     expiryTimerRef.current = setInterval(() => {
       const current = sessionRef.current;
@@ -643,8 +643,8 @@ const TrackLocationPage: React.FC = () => {
               <h2 className="text-lg font-bold text-brand-dark">{t('Tourist registration', 'سیاح رجسٹریشن')}</h2>
               <p className="mt-1 text-sm text-slate-500">
                 {t(
-                  'Fields marked * are required. Your details are used only for tourism safety and are deleted automatically after 3 days.',
-                  '* والے خانے لازمی ہیں۔ آپ کی تفصیلات صرف سیاحتی تحفظ کے لیے استعمال ہوتی ہیں اور 3 دن بعد خودکار طور پر حذف ہو جاتی ہیں۔'
+                  'Fields marked * are required. Your details are used only for tourism safety and are deleted automatically after 2 days.',
+                  '* والے خانے لازمی ہیں۔ آپ کی تفصیلات صرف سیاحتی تحفظ کے لیے استعمال ہوتی ہیں اور 2 دن بعد خودکار طور پر حذف ہو جاتی ہیں۔'
                 )}
               </p>
             </CardHeader>
@@ -776,8 +776,8 @@ const TrackLocationPage: React.FC = () => {
                     />
                     <span className="text-sm leading-relaxed text-slate-700">
                       {t(
-                        'I agree to share my GPS location with authorized Traffic Police Abbottabad personnel for tourism safety purposes, for as long as I keep tracking switched on. I understand I can stop sharing at any time and my data will be deleted automatically after 3 days.',
-                        'میں منظوری دیتا/دیتی ہوں کہ میری جی پی ایس لوکیشن سیاحتی تحفظ کے مقاصد کے لیے مجاز ٹریفک پولیس ایبٹ آباد کے اہلکاروں کے ساتھ، جب تک میں ٹریکنگ جاری رکھوں گا/رکھوں گی، شیئر کی جائے۔ میری اجازت ہے کہ میں کسی بھی وقت شیئرنگ بند کر سکتا/سکتی ہوں اور میرا ڈیٹا 3 دن بعد خودکار طور پر حذف ہو جائے گا۔'
+                        'I agree to share my GPS location with authorized Traffic Police Abbottabad personnel for tourism safety purposes, for as long as I keep tracking switched on. I understand I can stop sharing at any time and my data will be deleted automatically after 2 days.',
+                        'میں منظوری دیتا/دیتی ہوں کہ میری جی پی ایس لوکیشن سیاحتی تحفظ کے مقاصد کے لیے مجاز ٹریفک پولیس ایبٹ آباد کے اہلکاروں کے ساتھ، جب تک میں ٹریکنگ جاری رکھوں گا/رکھوں گی، شیئر کی جائے۔ میری اجازت ہے کہ میں کسی بھی وقت شیئرنگ بند کر سکتا/سکتی ہوں اور میرا ڈیٹا 2 دن بعد خودکار طور پر حذف ہو جائے گا۔'
                       )}
                       {' '}<span className="text-red-600">*</span>
                     </span>
@@ -980,7 +980,7 @@ const TrackLocationPage: React.FC = () => {
             </li>
             <li className="rounded-lg border border-slate-200 bg-white p-3.5">
               <strong className="text-brand-dark">4. {t('Stop anytime — data is deleted', 'جب چاہیں بند کریں — ڈیٹا حذف')}</strong>
-              <p className="mt-1">{t('Press "Stop Tracking" when you arrive safely. Your name, number and route history are deleted automatically after 3 days.', 'محفوظ پہنچنے پر "ٹریکنگ بند کریں" دبا دیں۔ نام، نمبر اور لوکیشن ریکارڈ 3 دن بعد اپنے آپ حذف ہو جاتے ہیں۔')}</p>
+              <p className="mt-1">{t('Press "Stop Tracking" when you arrive safely. Your name, number and route history are deleted automatically after 2 days.', 'محفوظ پہنچنے پر "ٹریکنگ بند کریں" دبا دیں۔ نام، نمبر اور لوکیشن ریکارڈ 2 دن بعد اپنے آپ حذف ہو جاتے ہیں۔')}</p>
             </li>
           </ol>
           <p className="mt-5 rounded-lg border border-brand-blue-200 bg-brand-blue-50 p-4 text-xs leading-relaxed text-brand-blue-900">

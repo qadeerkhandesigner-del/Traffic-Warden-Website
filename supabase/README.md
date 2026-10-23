@@ -1,6 +1,7 @@
-# Supabase setup — Galiyat advisories
+# Supabase setup — Galiyat advisories & tourist tracking
 
-Two SQL files live in this folder. **Only the first one is required.**
+The SQL files live in this folder. **Only `schema.sql` is required for the basic
+advisory board**; each update adds a feature. Run them in order.
 
 | # | File | Required? | What it does |
 |---|---|---|---|
@@ -10,7 +11,11 @@ Two SQL files live in this folder. **Only the first one is required.**
 | 4 | `updates-03-route-status.sql` | Optional | Road status board tables |
 | 5 | `updates-04-map-locations.sql` | Optional | Tourist map locations table |
 | 6 | `updates-05-complaints.sql` | Optional | Online complaints |
-| 7 | `updates-06-tourist-tracking.sql` | For "Track Your Location" | Tracking sessions + location history, token-verified RPCs, RLS, 3-day retention jobs |
+| 7 | `updates-06-tourist-tracking.sql` | For "Track Your Location" | Tracking sessions + location history, token-verified RPCs, RLS, retention jobs |
+| 8 | `updates-07-tourist-tracking-no-cap.sql` | For "Track Your Location" | Removes the tourist-facing duration cap; sessions follow the retention window |
+| 9 | `updates-08-staff-delete-tracking.sql` | For "Track Your Location" | Staff-only DELETE policies for sessions and GPS history |
+| 10 | `updates-09-tracking-vehicle-number.sql` | For "Track Your Location" | Optional vehicle registration number on sessions |
+| 11 | `updates-10-two-day-retention.sql` | For "Track Your Location" | Shortens retention to **2 days** (new sessions, cleanup job and running sessions) |
 
 Run them in the Supabase SQL editor: project → **SQL Editor** → *New query* → paste → **Run**.
 Both files are safe to run more than once.
@@ -98,7 +103,7 @@ Required steps after running the file:
    data in `/admin` → **Tourist Locations**.
 2. Enable **pg_cron** (Database → Extensions → pg_cron) so the scheduled jobs
    from STEP 8 start automatically:
-   expire sessions every 15 min, delete all tracking data after 3 days.
+   expire sessions every 15 min, delete all tracking data after 2 days.
    Without pg_cron, run `select public.expire_stale_tracking_sessions();` and
    `select public.cleanup_expired_tracking_data();` manually (weekly is enough
    for the cleanup; expiry is also derived live in the dashboard).

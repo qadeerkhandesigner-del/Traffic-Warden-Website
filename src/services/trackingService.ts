@@ -19,7 +19,7 @@ import { isSupabaseConfigured, supabase } from './supabaseClient';
  *
  *   Tracking runs for as long as the tourist keeps it on — there is NO
  *   tourist-facing duration limit. The server still bounds sessions to the
- *   3-day retention window (after which all their data is auto-deleted), and
+ *   2-day retention window (after which all their data is auto-deleted), and
  *   the frontend treats that bound purely as a safety net, never as a limit
  *   shown to the tourist.
  */
@@ -304,7 +304,7 @@ const ERROR_PHRASES: Record<TrackingErrorCode, string> = {
     'Stop the previous session or wait until it expires.',
   SESSION_NOT_FOUND: 'This tracking session is no longer valid. Please register again.',
   SESSION_EXPIRED:
-    'Your tracking session window has ended, so updates are no longer accepted. Your recorded route stays with the control room for 3 days.',
+    'Your tracking session window has ended, so updates are no longer accepted. Your recorded route stays with the control room for 2 days.',
   INVALID_POINTS: 'The location readings could not be uploaded (malformed data).',
   NETWORK: 'Network error — your location readings are saved on this device and will be uploaded automatically when connectivity returns.',
   UNKNOWN: 'Something went wrong. Please try again.',
