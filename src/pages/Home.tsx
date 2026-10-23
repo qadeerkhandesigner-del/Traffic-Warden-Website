@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { PageContainer } from '../components/layout/PageContainer';
+import { TravelDesk } from '../components/home/TravelDesk';
 import { useLanguage } from '../hooks/useLanguage';
 import {
   PhoneCall,
@@ -578,6 +579,9 @@ export const Home: React.FC = () => {
           </div>
         </PageContainer>
       </section>
+
+      {/* Travel & City Desk — gateway to the advisory, map and tracking tools */}
+      <TravelDesk />
     </div>
   );
 };
