@@ -1,9 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { PageContainer } from '../components/layout/PageContainer';
 import { useLanguage } from '../hooks/useLanguage';
-import { Card, CardContent, CardHeader } from '../components/ui/Card';
-import { ExternalLink, Users } from 'lucide-react';
-import { Button } from '../components/ui/Button';
+import { Users } from 'lucide-react';
 
 declare global {
   interface Window {
@@ -16,10 +14,6 @@ declare global {
 
 export const MediaNews: React.FC = () => {
   const { language, t } = useLanguage();
-  /* Facebook page plugins (embedded feeds) fail to render on some networks,
-     browsers with tracking protection or when Facebook requires a login.
-     After mounting, the SDK is watched; if the plugins still show no iframe
-     after a few seconds, an honest fallback panel is displayed. */
   const [embedFailed, setEmbedFailed] = useState(false);
   const pollRef = useRef<number | null>(null);
 
@@ -29,8 +23,6 @@ export const MediaNews: React.FC = () => {
       'میڈیا اور خبریں | ٹریفک وارڈن ایبٹ آباد — خیبر پختونخوا پولیس'
     );
 
-    /* Parse the XFBML markup as soon as — or whenever — the SDK is ready.
-       Without this the .fb-page divs render as empty blockquotes forever. */
     const parseFb = () => {
       window.FB?.XFBML?.parse?.();
     };
@@ -47,8 +39,6 @@ export const MediaNews: React.FC = () => {
       parseFb();
     }
 
-    /* Watch the plugins: if no embed iframe appears, show the fallback. The
-       same check clears itself if Facebook renders late. */
     let checks = 0;
     pollRef.current = window.setInterval(() => {
       checks += 1;
@@ -72,22 +62,18 @@ export const MediaNews: React.FC = () => {
     };
   }, [language, t]);
 
-  const pages = [
+  const latestNews = [
     {
-      titleEn: 'Traffic Warden Abbottabad - Facebook Page',
-      titleUr: 'ٹریفک وارڈن ایبٹ آباد - فیس بک پیج',
-      url: 'https://www.facebook.com/TrafficWardenAbbottabad',
-      href: 'https://www.facebook.com/TrafficWardenAbbottabad',
-      descriptionEn: 'Latest updates, traffic advisories & public notices',
-      descriptionUr: 'تازہ ترین اپڈیٹس، ٹریفک ایڈوائزریز اور عوامی نوٹسز',
-    },
-    {
-      titleEn: 'Abbottabad Police - Facebook Page',
-      titleUr: 'ایبٹ آباد پولیس - فیس بک پیج',
-      url: 'https://www.facebook.com/AbbottabadPoliceOfficial',
-      href: 'https://www.facebook.com/AbbottabadPoliceOfficial',
-      descriptionEn: 'Official updates from Abbottabad Police',
-      descriptionUr: 'ایبٹ آباد پولیس کی سرکاری تازہ ترین خبریں',
+      titleUr: 'نو تعینات ایس ایس پی ٹریفک محمد سلیمان خان PSP نے ٹریفک پولیس ایبٹ آباد کی کمان سنبھال لی',
+      contentUr: `نو تعینات ایس ایس پی ٹریفک ایبٹ آباد محمد سلیمان خان PSP نے ٹریفک پولیس ایبٹ آباد کے دفتر پہنچ کر اپنے عہدے کا چارج سنبھال لیا۔\n\nاس موقع پر ٹریفک پولیس کے چاق و چوبند دستے نے نو تعینات ایس ایس پی ٹریفک کو سلامی پیش کی۔\nایس ایس پی ٹریفک محمد سلیمان خان نے ٹریفک پولیس کے افسران و جوانوں سے تعارفی میٹنگ کے دوران انہیں اپنے فرائض منصبی احسن انداز میں، فرض شناسی، نظم و ضبط اور عوامی خدمت کے جذبے کے ساتھ سرانجام دینے کی ہدایات جاری کیں۔\n\nانہوں نے ٹریفک کی روانی برقرار رکھنے، شہریوں کو بہترین سفری سہولیات فراہم کرنے اور ٹریفک قوانین پر مؤثر عملدرآمد یقینی بنانے پر بھی زور دیا۔`,
+      images: [
+        '/SSP Taken Charge Images/SSP Image.jpg',
+        '/SSP Taken Charge Images/02.jpg',
+        '/SSP Taken Charge Images/03.jpg',
+        '/SSP Taken Charge Images/04.jpg',
+        '/SSP Taken Charge Images/05 .jpg',
+      ],
+      date: 'September 25, 2026',
     },
   ];
 
@@ -119,103 +105,53 @@ export const MediaNews: React.FC = () => {
 
       <section className="py-16 sm:py-20 bg-brand-light-bg">
         <PageContainer>
-          <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
-            {pages.map((page, idx) => (
-              <Card
-                key={idx}
-                className="rounded-3xl bg-brand-light-surface border border-brand-light-border hover:shadow-xl transition-all duration-300 overflow-hidden"
-              >
-                <CardHeader className="space-y-4 pb-4">
-                  <div className="flex items-start justify-between gap-3 flex-wrap">
-                    <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 rounded-2xl bg-[#1877F2] text-white flex items-center justify-center shadow-sm">
-                        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                          <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-                        </svg>
-                      </div>
-                      <div className="space-y-1">
-                        <h2 className="text-lg sm:text-xl font-bold text-brand-dark">
-                          {t(page.titleEn, page.titleUr)}
-                        </h2>
-                        <p className="text-xs sm:text-sm text-slate-600">
-                          {t(page.descriptionEn, page.descriptionUr)}
+          <div className="max-w-5xl mx-auto">
+            <div className="flex items-center gap-3 mb-8">
+              <div className="w-1 h-8 bg-brand-blue rounded-full"></div>
+              <h2 className="text-2xl sm:text-3xl font-bold text-brand-dark">
+                {t('LATEST NEWS', 'تازہ ترین خبریں')}
+              </h2>
+            </div>
+
+            <div className="grid grid-cols-1 gap-12">
+              {latestNews.map((news, idx) => (
+                <div key={idx} className="bg-brand-light-surface rounded-3xl border border-brand-light-border overflow-hidden shadow-sm">
+                  <div className="grid grid-cols-1 lg:grid-cols-2">
+                    <div className="p-6 sm:p-8 space-y-6">
+                      <div className="text-right" dir="rtl">
+                        <h3 className="text-xl sm:text-2xl font-bold text-brand-dark mb-4 leading-snug">
+                          {news.titleUr}
+                        </h3>
+                        <p className="text-slate-600 leading-relaxed whitespace-pre-line text-right">
+                          {news.contentUr}
                         </p>
                       </div>
-                    </div>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      href={page.href}
-                      target="_blank"
-                      leftIcon={<ExternalLink className="w-4 h-4" />}
-                    >
-                      {t('Visit Page', 'پیج دیکھیں')}
-                    </Button>
-                  </div>
-                </CardHeader>
-                <CardContent className="pt-0">
-                  {/* Embedded Facebook page feed. data-lazy removed: it delays
-                      the iframe until scrolled, which makes the feed look
-                      broken on tall cards. */}
-                  <div className="rounded-2xl overflow-hidden border border-brand-light-border bg-white flex justify-center">
-                    <div
-                      className={`fb-page${embedFailed ? ' hidden' : ''}`}
-                      data-href={page.url}
-                      data-tabs="timeline"
-                      data-width="500"
-                      data-height="650"
-                      data-small-header="false"
-                      data-adapt-container-width="true"
-                      data-hide-cover="false"
-                      data-show-facepile="false"
-                    >
-                      <blockquote cite={page.url} className="fb-xfbml-parse-ignore">
-                        <a href={page.url}>{t(page.titleEn, page.titleUr)}</a>
-                      </blockquote>
-                    </div>
-                    {embedFailed && (
-                      <div className="w-full flex flex-col items-center justify-center gap-4 py-14 px-6 text-center">
-                        <div className="w-14 h-14 rounded-2xl bg-[#1877F2]/10 flex items-center justify-center">
-                          <svg className="w-7 h-7 text-[#1877F2]" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-                          </svg>
-                        </div>
-                        <div className="space-y-2 max-w-md">
-                          <p className="text-sm font-semibold text-brand-dark">
-                            {t(
-                              'Facebook feed unavailable here',
-                              'فیس بک فیڈ یہاں دستیاب نہیں'
-                            )}
-                          </p>
-                          <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                            {t(
-                              'Facebook embeds can be blocked by tracking protection, browser extensions or a login requirement. You can read all official updates directly on the Facebook page.',
-                              'فیس بک ایمبیڈ کچھ براؤزرز، ایکسٹینشنز یا لاگ ان کی ضرورت کی وجہ سے بند ہو سکتا ہے۔ تمام سرکاری اپڈیٹس آپ سیدھا فیس بک پیج پر دیکھ سکتے ہیں۔'
-                            )}
-                          </p>
-                        </div>
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          href={page.href}
-                          target="_blank"
-                          leftIcon={<ExternalLink className="w-4 h-4" />}
-                        >
-                          {t('Open on Facebook', 'فیس بک پر کھولیں')}
-                        </Button>
+                      <div className="flex items-center justify-end gap-2 text-sm text-slate-400">
+                        <span>{news.date}</span>
                       </div>
-                    )}
+                    </div>
+                    <div className="p-6 sm:p-8 bg-slate-50 grid grid-cols-2 gap-4">
+                      {news.images.map((img, imgIdx) => (
+                        <div key={imgIdx} className={`relative rounded-2xl overflow-hidden shadow-md ${imgIdx === 0 ? 'col-span-2 h-80' : 'h-32'}`}>
+                          <img 
+                            src={img} 
+                            alt={`News image ${imgIdx + 1}`} 
+                            className={`w-full h-full transition-transform duration-500 hover:scale-105 ${imgIdx === 0 ? 'object-contain bg-slate-200' : 'object-cover'}`}
+                          />
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                </CardContent>
-              </Card>
-            ))}
+                </div>
+              ))}
+            </div>
           </div>
         </PageContainer>
       </section>
 
       <section className="py-12 sm:py-16 bg-brand-light-surface border-t border-brand-light-border">
         <PageContainer>
-          <div className="max-w-3xl mx-auto text-center space-y-4">
+          <div className="max-w-3xl mx-auto text-center space-y-6">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-blue-50 text-brand-blue border border-brand-blue-100 text-xs font-semibold uppercase tracking-wider">
               <Users className="w-4 h-4" />
               <span>{t('STAY CONNECTED', 'جڑے رہیں')}</span>
@@ -226,6 +162,32 @@ export const MediaNews: React.FC = () => {
                 'فوری اپڈیٹس کے لیے ہمارے سرکاری فیس بک پیجز فالو کریں۔ تمام اہم اعلانات، ٹریفک ڈائیورسشنز، روڈ سیفٹی مہمات اور عوامی سہولت سے متعلق اپڈیٹس سب سے پہلے یہاں شیئر کیے جاتے ہیں۔'
               )}
             </p>
+            <div className="flex flex-wrap justify-center gap-10 pt-4">
+              <div className="flex flex-col items-center gap-3">
+                <span className="text-sm font-bold text-brand-dark uppercase tracking-wide">Traffic Police Abbottabad Facebook</span>
+                <a 
+                  href="https://www.facebook.com/TrafficWardenAbbottabad/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="w-14 h-14 rounded-full bg-[#1877F2] text-white flex items-center justify-center hover:scale-110 transition-transform duration-300 shadow-lg"
+                  title="Traffic Warden Abbottabad Facebook"
+                >
+                  <svg className="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" /></svg>
+                </a>
+              </div>
+              <div className="flex flex-col items-center gap-3">
+                <span className="text-sm font-bold text-brand-dark uppercase tracking-wide">District Police Abbottabad Facebook</span>
+                <a 
+                  href="https://www.facebook.com/AbbottabadPoliceOfficial/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="w-14 h-14 rounded-full bg-[#1877F2] text-white flex items-center justify-center hover:scale-110 transition-transform duration-300 shadow-lg"
+                  title="Abbottabad Police Facebook"
+                >
+                  <svg className="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" /></svg>
+                </a>
+              </div>
+            </div>
           </div>
         </PageContainer>
       </section>
