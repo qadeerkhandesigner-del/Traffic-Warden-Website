@@ -1,65 +1,16 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect } from 'react';
 import { PageContainer } from '../components/layout/PageContainer';
 import { useLanguage } from '../hooks/useLanguage';
 import { Users } from 'lucide-react';
 
-declare global {
-  interface Window {
-    FB?: {
-      XFBML?: { parse?: (node?: HTMLElement) => void };
-      Event?: { subscribe?: (name: string, cb: () => void) => void };
-    };
-  }
-}
-
 export const MediaNews: React.FC = () => {
   const { language, t } = useLanguage();
-  const [embedFailed, setEmbedFailed] = useState(false);
-  const pollRef = useRef<number | null>(null);
 
   useEffect(() => {
     document.title = t(
       'Media & News | Traffic Warden Abbottabad — Khyber Pakhtunkhwa Police',
       'میڈیا اور خبریں | ٹریفک وارڈن ایبٹ آباد — خیبر پختونخوا پولیس'
     );
-
-    const parseFb = () => {
-      window.FB?.XFBML?.parse?.();
-    };
-
-    if (!document.getElementById('facebook-jssdk')) {
-      const script = document.createElement('script');
-      script.id = 'facebook-jssdk';
-      script.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v19.0';
-      script.async = true;
-      script.defer = true;
-      script.onload = parseFb;
-      document.body.appendChild(script);
-    } else {
-      parseFb();
-    }
-
-    let checks = 0;
-    pollRef.current = window.setInterval(() => {
-      checks += 1;
-      const rendered = document.querySelector('.fb-page iframe') !== null;
-      setEmbedFailed(checks >= 4 && !rendered);
-      if (rendered && pollRef.current !== null) {
-        window.clearInterval(pollRef.current);
-        pollRef.current = null;
-      }
-      if (checks >= 10 && pollRef.current !== null) {
-        window.clearInterval(pollRef.current);
-        pollRef.current = null;
-      }
-    }, 1200);
-
-    return () => {
-      if (pollRef.current !== null) {
-        window.clearInterval(pollRef.current);
-        pollRef.current = null;
-      }
-    };
   }, [language, t]);
 
   const latestNews = [
