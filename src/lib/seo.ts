@@ -9,7 +9,7 @@
  * verbatim from the public Footer component — nothing is invented.
  */
 
-export const SITE_URL = 'https://trafficpoliceabbottabad.gov.pk';
+export const SITE_URL = 'https://abbottabadtrafficwarden.com';
 
 export interface RouteMeta {
   /** Short page name (mirrors the visible page H1/hero) — used for og:title. */

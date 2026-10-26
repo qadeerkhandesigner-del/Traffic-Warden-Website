@@ -5,7 +5,7 @@ at the actual hosting platform. Verify on the live domain after deploying.
 
 Domains/services referenced by the site (audited from source):
 
-- Site: `https://trafficpoliceabbottabad.gov.pk`
+- Site: `https://abbottabadtrafficwarden.com`
 - Google Fonts: `fonts.googleapis.com` (CSS), `fonts.gstatic.com` (WOFF2)
 - Supabase: `<project-ref>.supabase.co` (REST + Auth + Realtime; use the value from `.env` → `VITE_SUPABASE_URL`)
 - Weather: `api.open-meteo.com` (keyless public API)
