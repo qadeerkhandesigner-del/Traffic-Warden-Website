@@ -334,10 +334,11 @@ export const Home: React.FC = () => {
               },
               {
                 nameEn: 'SSP Traffic Muhammad Suleman',
-                nameUr: 'ایم ایس پی ٹریفک محمد سلیمان',
+                nameUr: 'ایس ایس پی ٹریفک محمد سلیمان',
                 rankEn: 'Senior Superintendent of Police, Traffic',
                 rankUr: 'سینئر سپرنٹنڈنٹ آف پولیس، ٹریفک',
-                image: '/SSP Traffic .jpg',
+                image: '/SSP Muhammad Suleiman Updated Image for Home page.jpg',
+
               },
             ].map((officer, index) => (
               <div

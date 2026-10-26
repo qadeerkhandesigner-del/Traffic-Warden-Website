@@ -126,7 +126,7 @@ export const Footer: React.FC = () => {
 
 <div className="mt-3 flex items-center gap-1.5">
                 <a
-                  href="https://www.facebook.com/TrafficWardenAbbottabad"
+                  href="https://www.facebook.com/share/19gsCAnDFg/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-7 h-7 rounded-full bg-white/10 hover:bg-[#1877F2] hover:text-white transition-all duration-300 flex items-center justify-center"
